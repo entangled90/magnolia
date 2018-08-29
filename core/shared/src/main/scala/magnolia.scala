@@ -202,6 +202,8 @@ object Magnolia {
       val typeSymbol = genericType.typeSymbol
       val classType = if (typeSymbol.isClass) Some(typeSymbol.asClass) else None
       val isCaseClass = classType.exists(_.isCaseClass)
+      // FIXME Temporary method, should be improved.
+      val isTuple = typeSymbol.fullName.startsWith("scala.Tuple")
       val isCaseObject = classType.exists(_.isModuleClass)
       val isSealedTrait = classType.exists(_.isSealed)
 
@@ -233,6 +235,7 @@ object Magnolia {
           ${c.prefix}.combine(new $magnoliaPkg.CaseClass[$typeConstructor, $genericType](
             $typeName,
             true,
+            false,
             false,
             new $scalaPkg.Array(0),
             $scalaPkg.Array(..$classAnnotationTrees)
@@ -378,6 +381,7 @@ object Magnolia {
               $typeName,
               false,
               $isValueClass,
+              $isTuple,
               $paramsVal,
               $scalaPkg.Array(..$classAnnotationTrees)
             ) {

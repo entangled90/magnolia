@@ -144,6 +144,7 @@ abstract class CaseClass[Typeclass[_], Type] (
   val typeName: TypeName,
   val isObject: Boolean,
   val isValueClass: Boolean,
+  val isTuple: Boolean,
   parametersArray: Array[Param[Typeclass, Type]],
   annotationsArray: Array[Any]
 ) extends Serializable {
